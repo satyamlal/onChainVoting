@@ -13,7 +13,7 @@ pub mod onChainVoting {
 
 #[account]
 #[derive(InitSpace)]
-pub struct PollAccount {
+pub fn PollAccount {
     #[max_length(32)]
     pub poll_name: String,
 
@@ -26,8 +26,8 @@ pub struct PollAccount {
 
 #[account]
 #[derive(InitSpace)]
-pub struct CandidateAccount {
+pub fn CandidateAccount {
     #[max_length(32)]
     pub candidate_name: String,
-    pub candidate_votes: u64
+    pub candidate_votes: u64,
 }
