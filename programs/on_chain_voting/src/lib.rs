@@ -6,8 +6,11 @@ declare_id!("GUTMvs4uirowQBJstmRsiHkvKL2UdS6F3FTTeq29tqoC");
 pub mod on_chain_voting {
     use super::*;
 
-    pub fn init_poll(ctx: Context<InitPoll>, poll_id: u64) -> Result<()> {
-        initialize::handler(ctx, poll_id)
+    pub fn init_poll(ctx: Context<InitPoll>, _poll_id: u64) -> Result<()> {
+        // initialize::handler(ctx, poll_id)
+        let poll = &mut ctx.accounts.poll_account;
+        poll.poll_option_index = 0;
+        Ok(())
     }
 }
 
