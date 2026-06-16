@@ -3,21 +3,38 @@ use anchor_lang::prelude::*;
 declare_id!("GUTMvs4uirowQBJstmRsiHkvKL2UdS6F3FTTeq29tqoC");
 
 #[program]
-pub mod onChainVoting {
+pub mod on_chain_voting {
     use super::*;
 
-    pub fn init_poll(ctx: Context<InitPoll>) -> Result<()> {
-        initialize::handler(ctx)
+    pub fn init_poll(ctx: Context<InitPoll>, poll_id: u64) -> Result<()> {
+        initialize::handler(ctx, poll_id)
     }
+}
+
+#[derive(Accounts)]
+#[instruction(poll_id: u64)]
+pub struct InitPoll<'info> {
+    #[account(mut)]
+    pub signer: Signer<'info>,
+
+    #[account(
+        init,
+        payer = signer,
+        space = 8 + PollAccount::INIT_SPACE,
+        seeds = [b"poll".as_ref(), poll_id.to_le_bytes().as_ref()],
+        bump        
+    )]
+    pub poll_account: Account<'info, PollAccount>,
+    pub system_program: Program<'info, System>,
 }
 
 #[account]
 #[derive(InitSpace)]
-pub fn PollAccount {
-    #[max_length(32)]
+pub struct PollAccount {
+    #[max_len(32)]
     pub poll_name: String,
 
-    #[max_length(280)]
+    #[max_len(280)]
     pub poll_description: String,
     pub poll_start: u64,
     pub poll_end: u64,
@@ -26,8 +43,8 @@ pub fn PollAccount {
 
 #[account]
 #[derive(InitSpace)]
-pub fn CandidateAccount {
-    #[max_length(32)]
+pub struct CandidateAccount {
+    #[max_len(32)]
     pub candidate_name: String,
     pub candidate_votes: u64,
 }

@@ -6,7 +6,7 @@ edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "onChainVoting"
+name = "on_chain_voting"
 
 [features]
 default = []
