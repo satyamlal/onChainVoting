@@ -21,7 +21,7 @@ pub mod on_chain_voting {
         Ok(())
     }
 
-    pub fn vote(ctx: Context<Vote>, poll_id: u64, candidate: String) -> Result<()> {
+    pub fn vote(ctx: Context<Vote>, _poll_id: u64, _candidate: String) -> Result<()> {
         let candidate_acc = &mut ctx.accounts.candidate_account;
         let current_time = Clock::get()?.unix_timestamp;
 
@@ -32,6 +32,8 @@ pub mod on_chain_voting {
         if current_time <= (ctx.accounts.poll_account.poll_voting_start as i64) {
             return Err(ErrorCode::VotingNotStarted.into());
         }
+
+        candidate_acc.candidate_votes += 1;
 
         Ok(())
     }
