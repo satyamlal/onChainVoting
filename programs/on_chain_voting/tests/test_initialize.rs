@@ -22,12 +22,23 @@ fn test_initialize() {
         .join("on_chain_voting.so");
 
     let poll_id = 1u64;
+    let poll_voting_start = 1_000_000u64;
+    let poll_voting_end = 2_000_000u64;
+    let name = String::from("Test Poll");
+    let description = String::from("Test poll description");
     let (poll_account, _) =
         Pubkey::find_program_address(&[b"poll", &poll_id.to_le_bytes()], &program_id);
 
     let instruction = Instruction::new_with_bytes(
         program_id,
-        &on_chain_voting::instruction::InitPoll { _poll_id: poll_id }.data(),
+        &on_chain_voting::instruction::InitPoll {
+            _poll_id: poll_id,
+            poll_voting_start,
+            poll_voting_end,
+            name: name.clone(),
+            description: description.clone(),
+        }
+        .data(),
         on_chain_voting::accounts::InitPoll {
             signer: payer.pubkey(),
             poll_account,
