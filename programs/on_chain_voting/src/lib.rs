@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("DVPoVewzorwzAtuZ8Dgu5xzuBMLdLy7rXtHhNR8oeFr3");
+declare_id!("8s4gonpXfvVTcjMF1p7GGqiS1a5BVVvuGhzvarwNRgiC");
 
 #[program]
 pub mod on_chain_voting {
@@ -82,13 +82,13 @@ pub struct InitCandidate<'info> {
 
 #[derive(Accounts)]
 #[instruction(poll_id: u64, candidate: String)]
-    pub struct Vote<'info> {
+pub struct Vote<'info> {
     #[account(mut)]
     pub signer: Signer<'info>,
 
     #[account(
         mut,
-        seeds = [b"poll".as_ref(), poll_id.to_le_bytes().as_ref()],
+        seeds = [b"vote".as_ref(), poll_id.to_le_bytes().as_ref()],
         bump
     )]
     pub poll_account: Account<'info, PollAccount>,

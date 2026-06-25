@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-on_chain_voting = "DVPoVewzorwzAtuZ8Dgu5xzuBMLdLy7rXtHhNR8oeFr3"
+on_chain_voting = "8s4gonpXfvVTcjMF1p7GGqiS1a5BVVvuGhzvarwNRgiC"
 
 [provider]
 cluster = "localnet"
