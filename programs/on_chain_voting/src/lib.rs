@@ -95,7 +95,7 @@ pub struct Vote<'info> {
 
     #[account(
         mut,
-        seeds = [poll_id.to_le_bytes().as_ref(), candidate.as_ref()],
+        seeds = [b"candidate".as_ref(), poll_id.to_le_bytes().as_ref(), candidate.as_bytes()],
         bump
     )]
     pub candidate_account: Account<'info, CandidateAccount>,
